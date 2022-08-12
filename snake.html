@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake</title>
+    <script src="jquery-3.4.1.js"></script>
+</head>
+<style>
+    td {
+        border: solid;
+        color: black;
+        width: 25px;
+        height: 25px;
+        padding: 3px;
+    }
+
+    .green {
+        background-color: green;
+    }
+</style>
+
+<body>
+    <table id="table"></table>
+    <script>
+        // 盤面大小
+        let tr_count = 10;
+        let td_count = 10;
+        for (i = 1; i <= tr_count; i++) {
+            $("#table").append('<tr id="tr_' + i + '"></tr>');
+            for (j = 1; j <= td_count; j++) {
+                $('#tr_' + i).append('<td id="' + j + '-' + i + '"></td>');
+            }
+        }
+        // 初始位置.移動方向.時間間隔
+        let snack = [
+            [3, 1],
+            [2, 1],
+            [1, 1]
+        ];
+        let toward_x = 1;
+        let toward_y = 0;
+        let t = 0.3;
+        let food = Array();
+        snack.forEach((element) => {
+            $("#" + element[0] + "-" + element[1]).addClass("green");
+        })
+        // 鍵盤操作
+        document.onkeydown = function () {
+            switch (event.keyCode) {
+                case 37:
+                    if (toward_x == 0 && (toward_y == 1 || toward_y == -1)) {
+                        toward_y = 0;
+                        toward_x = -1;
+                    }
+                    break;
+                case 38:
+                    if (toward_y == 0 && (toward_x == 1 || toward_x == -1)) {
+                        toward_y = -1;
+                        toward_x = 0;
+                    }
+                    break;
+                case 39:
+                    if (toward_x == 0 && (toward_y == 1 || toward_y == -1)) {
+                        toward_y = 0;
+                        toward_x = 1;
+                    }
+                    break;
+                case 40:
+                    if (toward_y == 0 && (toward_x == 1 || toward_x == -1)) {
+                        toward_y = 1;
+                        toward_x = 0;
+                    }
+                    break;
+            }
+        }
+
+        // 下一動位置
+        function move(obj) {
+            if (toward_y == 0) {
+                if (obj[0][0] > 1 && obj[0][0] < td_count && (toward_x > 0 || toward_x < 0)) { // 一般行進
+                    for (i = obj.length - 1; i > 0; i--) {
+                        obj[i][0] = Number(obj[i - 1][0]);
+                        obj[i][1] = Number(obj[i - 1][1]);
+                    }
+                    obj[0][0] = Number(obj[0][0] + toward_x);
+                } else if (obj[0][0] == 1 || obj[0][0] == td_count) {
+                    if (obj[0][0] == 1 && toward_x < 0) { // 上邊界
+                        for (i = obj.length - 1; i > 0; i--) {
+                            obj[i][0] = Number(obj[i - 1][0]);
+                            obj[i][1] = Number(obj[i - 1][1]);
+                        }
+                        obj[0][0] = td_count;
+                    } else if (obj[0][0] == td_count && toward_x < 0) {
+                        for (i = obj.length - 1; i > 0; i--) {
+                            obj[i][0] = Number(obj[i - 1][0]);
+                            obj[i][1] = Number(obj[i - 1][1]);
+                        }
+                        obj[0][0] = obj[0][0] + toward_x;
+                    } else if (obj[0][0] == td_count && toward_x > 0) { // 下邊界
+                        for (i = obj.length - 1; i > 0; i--) {
+                            obj[i][0] = Number(obj[i - 1][0]);
+                            obj[i][1] = Number(obj[i - 1][1]);
+                        }
+                        obj[0][0] = 1;
+                    } else if (obj[0][0] == 1 && toward_x > 0) {
+                        for (i = obj.length - 1; i > 0; i--) {
+                            obj[i][0] = Number(obj[i - 1][0]);
+                            obj[i][1] = Number(obj[i - 1][1]);
+                        }
+                        obj[0][0] = obj[0][0] + toward_x;
+                    }
+                }
+            } else if (toward_x == 0) {
+                if (obj[0][1] > 1 && obj[0][1] < tr_count && (toward_y > 0 || toward_y < 0)) { // 一般行進
+                    for (i = obj.length - 1; i > 0; i--) {
+                        obj[i][0] = Number(obj[i - 1][0]);
+                        obj[i][1] = Number(obj[i - 1][1]);
+                    }
+                    obj[0][1] = Number(obj[0][1] + toward_y);
+                } else if (obj[0][1] == 1 || obj[0][1] == tr_count) {
+                    if (obj[0][1] == 1 && toward_y < 0) { // 上邊界
+                        for (i = obj.length - 1; i > 0; i--) {
+                            obj[i][0] = Number(obj[i - 1][0]);
+                            obj[i][1] = Number(obj[i - 1][1]);
+                        }
+                        obj[0][1] = tr_count;
+                    } else if (obj[0][1] == tr_count && toward_y < 0) {
+                        for (i = obj.length - 1; i > 0; i--) {
+                            obj[i][0] = Number(obj[i - 1][0]);
+                            obj[i][1] = Number(obj[i - 1][1]);
+                        }
+                        obj[0][1] = obj[0][1] + toward_y;
+                    } else if (obj[0][1] == tr_count && toward_y > 0) { // 下邊界
+                        for (i = obj.length - 1; i > 0; i--) {
+                            obj[i][0] = Number(obj[i - 1][0]);
+                            obj[i][1] = Number(obj[i - 1][1]);
+                        }
+                        obj[0][1] = 1;
+                    } else if (obj[0][1] == 1 && toward_y > 0) {
+                        for (i = obj.length - 1; i > 0; i--) {
+                            obj[i][0] = Number(obj[i - 1][0]);
+                            obj[i][1] = Number(obj[i - 1][1]);
+                        }
+                        obj[0][1] = obj[0][1] + toward_y;
+                    }
+                }
+            }
+
+            // 吃
+            if (food.length > 0) {
+                if (food[0] == obj[0][0] && food[1] == obj[0][1]) {
+                    food = [];
+                    obj.push([obj[obj.length - 1][0] - toward_x, obj[obj.length - 1][1] - toward_y]);
+                }
+            }
+
+            // 判斷是否遊戲結束(頭與成員同座標)
+            obj.forEach((element, index) => {
+                if (element[0] == obj[0][0] && element[1] == obj[0][1] && index != 0) {
+                    clearInterval(timeoutID);
+                    alert("總長度為" + obj.length + "格~Game Over!!");
+                    location.reload();
+                }
+            })
+
+            return obj;
+        }
+
+        timeoutID = window.setInterval((() => {
+                snack.forEach((element) => {
+                    $("#" + element[0] + "-" + element[1]).removeClass("green");
+                })
+                snack = move(snack);
+                snack.forEach((element) => {
+                    $("#" + element[0] + "-" + element[1]).addClass("green");
+                })
+
+                // 食物生成
+                if (food.length == 0) {
+                    snack.forEach((element) => {
+                        do {
+                            food = [Math.floor(Math.random() * td_count + 1), Math.floor(Math.random() *
+                                tr_count + 1)];
+                        } while (element[0] == food[0] && element[1] == food[1])
+                    })
+                    $("#" + food[0] + "-" + food[1]).addClass("green");
+                }
+            }),
+            1000 * t);
+    </script>
+</body>
+
+</html>

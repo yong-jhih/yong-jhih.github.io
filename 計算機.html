@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>計算機</title>
+    <link rel="stylesheet" href="Navbar.css">
+    <link rel="stylesheet" href="bootstrap-4.3.1-dist/css/bootstrap.css">
+    <script src="bootstrap-4.3.1-dist/js/bootstrap.js"></script>
+    <script src="jquery-3.4.1.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+    <style>
+        body {
+            background-color: black;
+        }
+
+        table,
+        tr,
+        td {
+            border: 2px solid gray;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        div {
+            width: 135px;
+            background-color: azure;
+        }
+    </style>
+</head>
+
+<body style="text-align: center">
+    <nav>
+        <ul class="navBar">
+            <li><a href="計算機.html">計算機</a></li>
+            <li><a href="隨機數.html">隨機數</a></li>
+        </ul>
+    </nav>
+
+    <div>
+        <table>
+            <tr>
+                <td colspan="4" id="gal" style="height: 20px"></td>
+                <!-- <td></td> -->
+                <!-- <td></td> -->
+                <!-- <td></td> -->
+            </tr>
+            <tr>
+                <td colspan="4" id="operation" style="height: 20px"></td>
+                <!-- <td></td> -->
+                <!-- <td></td> -->
+                <!-- <td></td> -->
+            </tr>
+            <tr>
+                <td><button onclick="buttonClick('+')" value="+">＋</button></td>
+                <td><button onclick="buttonClick('-')" value="-">－</button></td>
+                <td><button onclick="buttonClick('*')" value="*">Ｘ</button></td>
+                <td><button onclick="buttonClick('/')" value="/">／</button></td>
+            </tr>
+            <tr>
+                <td><button onclick="buttonClick('7')">７</button></td>
+                <td><button onclick="buttonClick('8')">８</button></td>
+                <td><button onclick="buttonClick('9')">９</button></td>
+                <td><button onclick="buttonClick('0')">０</button></td>
+            </tr>
+            <tr>
+                <td><button onclick="buttonClick('4')">４</button></td>
+                <td><button onclick="buttonClick('5')">５</button></td>
+                <td><button onclick="buttonClick('6')">６</button></td>
+                <td><button onclick="ansClick(this)">＝</button></td>
+            </tr>
+            <tr>
+                <td><button onclick="buttonClick('1')">１</button></td>
+                <td><button onclick="buttonClick('2')">２</button></td>
+                <td><button onclick="buttonClick('3')">３</button></td>
+                <td><button onclick="clearAll(this)">Ｃ</button></td>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        var random;
+        var num;
+        var ans;
+
+        //輸入並顯示
+        function buttonClick(num) {
+            document.getElementById('operation').innerHTML =
+                document.getElementById('operation').innerHTML + num;
+        }
+
+        //等於
+        function ansClick() {
+            document.getElementById('operation').innerHTML =
+                eval(document.getElementById('operation').innerHTML);
+        }
+
+        function clearAll() {
+            document.getElementById('operation').innerHTML = "";
+            temp = "";
+            //產生20內隨機亂數
+            random = parseInt(Math.random() * 21);
+        }
+    </script>
+
+</body>
+
+</html>
