@@ -1,0 +1,95 @@
+table {
+    border-collapse: separate;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 6px;
+}
+
+td {
+    border-collapse: separate;
+    border: 3px solid rgba(255,255,255,0);
+    width: 54px;
+    height: 54px;
+}
+
+#central{
+    text-align: center;
+}
+
+#runningArea {
+    margin: 30px;
+    margin-bottom:0px ;
+    width: 99%;
+    height: 280px;
+}
+
+.yellowLight {
+    animation-name: borderColor ;
+    animation-duration:2s ;
+    border: 3px solid yellow;
+}
+
+.normal {
+    border: 3px solid rgba(255,255,255,0);
+}
+
+#setBoard>div {
+    padding: auto;
+    margin-top: 9px;
+    margin-left: 3px;
+    margin-right: 3px;
+    margin-bottom: 6px;
+    text-align: center;
+    display: inline-block;
+    width: 74px;
+    height: 154px;
+}
+
+h3{
+    margin: 0px;
+}
+p>input {
+    width: 68px;
+}
+
+@keyframes borderColor{
+    0%{
+        border: 3px solid yellow;
+    }
+    25%{
+        border: 3px solid red;
+    }
+    50%{
+        border: 3px solid white;
+    }
+    75%{
+        border: 3px solid red;
+    }
+    100%{
+        border: 3px solid yellow;
+    }
+}
+
+@keyframes fontColor{
+    0%{
+        color: yellow;
+    }
+    25%{
+        color: red;
+    }
+    50%{
+        color: white;
+    }
+    75%{
+        color: red;
+    }
+    100%{
+        color: yellow;
+    }
+}
+
+.font{
+    animation-name: fontColor;
+    animation-duration:2s ;
+    color:yellow;
+}
